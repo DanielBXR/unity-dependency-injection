@@ -135,8 +135,12 @@ namespace UnityDependencyInjection
 				var dependency = GetDependency(field.FieldType);
 				if (dependency == null)
 				{
-					LogWarning(
-						$"Unmet dependency for {targetObjectType.Name}.{field.Name} ({field.FieldType})");
+					var injectAttribute = field.GetCustomAttribute<InjectAttribute>();
+					if (!injectAttribute.CanBeNull)
+					{
+						Debug.LogWarning(
+							$"Unmet dependency for {targetObjectType.Name}.{field.Name} ({field.FieldType})");
+					}
 				}
 				else if (EnableLogging)
 				{
