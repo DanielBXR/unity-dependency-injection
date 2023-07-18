@@ -219,7 +219,12 @@ namespace UnityDependencyInjection
 					var dependency = container.GetDependency(field.FieldType);
 					if (dependency == null)
 					{
-						Debug.LogWarning($"Unmet dependency for {MonoBehaviourType.Name}.{field.Name} ({field.FieldType})");
+						var injectAttribute = field.GetCustomAttribute<InjectAttribute>();
+						if (!injectAttribute.CanBeNull)
+						{
+							Debug.LogWarning(
+								$"Unmet dependency for {targetObjectType.Name}.{field.Name} ({field.FieldType})");
+						}
 					}
 					field.SetValue(obj, dependency);
 				}
