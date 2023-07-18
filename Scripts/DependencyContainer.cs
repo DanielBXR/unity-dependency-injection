@@ -223,7 +223,7 @@ namespace UnityDependencyInjection
 						if (!injectAttribute.CanBeNull)
 						{
 							Debug.LogWarning(
-								$"Unmet dependency for {targetObjectType.Name}.{field.Name} ({field.FieldType})");
+								$"Unmet dependency for {MonoBehaviourType.Name}.{field.Name} ({field.FieldType})");
 						}
 					}
 					field.SetValue(obj, dependency);
